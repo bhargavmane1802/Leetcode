@@ -22,7 +22,6 @@ public:
             }
             x++;
         }
-        cout<<s<<endl;
         int i=0;
         int j=0;
         while(j<s.size()){
