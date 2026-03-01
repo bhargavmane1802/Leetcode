@@ -2,9 +2,8 @@ class Solution {
 public:
     int minPartitions(string n) {
         int x=-1;
-        for(int i=0;i<n.size();i++){
-            int temp=n[i]-'0';
-            if(x<temp)x=temp;
+        for(char i:n){
+            if(x<i-'0')x=i-'0';
         }
         return x;
         
