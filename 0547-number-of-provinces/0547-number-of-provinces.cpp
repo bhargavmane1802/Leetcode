@@ -13,7 +13,7 @@ public:
                 while(!q.empty()){
                     int  t=q.front();
                     q.pop();
-                    for(int j=0;j<n;j++){
+                    for(int j=i+1;j<n;j++){
                         if(visited[j]==0 && adj[t][j]!=0){
                             q.push(j);
                             visited[j]=1;
