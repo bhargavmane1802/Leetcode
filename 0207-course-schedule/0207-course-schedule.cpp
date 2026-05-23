@@ -8,7 +8,6 @@ public:
             adj[x[1]].push_back(x[0]);
         }
         queue<int>q;
-        vector<int>visited(n);
         for(int i=0;i<n;i++){
             if(in[i]==0) q.push(i);
         }
@@ -18,6 +17,7 @@ public:
             for(auto i:adj[index]){
                 in[i]--;
                 if(in[i]==0)q.push(i);
+                if(in[i]<0)return false;
             }
         }
         for(int i=0;i<n;i++){
