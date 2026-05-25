@@ -11,7 +11,8 @@ public:
             int t=q.front();
             q.pop();
             int l=max(m,(t+minJump));
-            while(l<n && l<=maxJump+t){
+            int r=min(n-1,maxJump+t);
+            while(l<=r){
                 if(s[l]=='0'){
                     if((l)==n-1)return true;
                     q.push(l);
