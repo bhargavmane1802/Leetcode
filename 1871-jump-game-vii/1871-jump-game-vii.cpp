@@ -19,9 +19,9 @@ public:
                     q.push(l);
                     visited[l]=1;
                 }
-                m=max(l,m);
                 l++;
             }
+            m=max(m,maxJump+t);
         }
         return false;
     }
