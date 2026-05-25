@@ -21,7 +21,7 @@ public:
                 }
                 l++;
             }
-            m=max(m,maxJump+t);
+            m=max(m,maxJump+t+1);
         }
         return false;
     }
