@@ -3,18 +3,25 @@ public:
     int earliestFinishTime(vector<int>& ls, vector<int>& ld, vector<int>& ws, vector<int>& wd) {
         int n=ls.size();
         int m=ws.size();
-        int ans=INT_MAX;
-        int l,w;
+        int l=0,w=0;
         for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                l=ls[i]+ld[i];
-                if(l>=ws[j]) l+=wd[j];
-                else l+=(ws[j]-l)+wd[j];
-                w=ws[j]+wd[j];
-                if(w>=ls[i]) w+=ld[i];
-                else w+=(ls[i]-w)+ld[i];
-                ans=min(ans,min(l,w));
+            if(ls[i]+ld[i]<ls[l]+ld[l]){
+                l=i;
             }
+        }
+        for(int i=0;i<m;i++){
+            if(ws[i]+wd[i]<ws[w]+wd[w]){
+                w=i;
+            }
+        }
+        l=ls[l]+ld[l];
+        w=ws[w]+wd[w];
+        int ans=INT_MAX;
+        for(int i=0;i<n;i++){
+            ans=min(ans,max(w,ls[i])+ld[i]);
+        }
+        for(int i=0;i<m;i++){
+            ans=min(ans,max(l,ws[i])+wd[i]);
         }
         return ans;
     }
