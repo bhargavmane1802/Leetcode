@@ -8,9 +8,8 @@ public:
                 sum+=weights[(i-'a')];
             }
             sum=(sum%26);
-            cout<<sum<<" ";
             sum=abs(sum-26);
-            ans+=char('a'+sum-1);
+            ans.push_back(char('a'+sum-1));
         }
         return ans;
     }
