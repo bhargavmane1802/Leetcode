@@ -8,13 +8,14 @@ public:
         vector<int>visited(sum+1,0);
         visited[0]=1;
         for(int i:nums){
-            for (int j = sum; j >= i; j--) {
-                if (visited[j - i] == 1) {
-                    visited[j] = 1;
+            if(i>sum)return false;
+            for(int j=sum;j>=i;j--){
+                if(visited[j-i]==1){
+                    visited[j]=1;
                 }
             }
+            if(visited[sum]==1)return true;
         }
-        if(visited[visited.size()-1]==1)return true;
         return false;
 
     }
