@@ -1,21 +1,17 @@
 class Solution {
 public:
-    int search(vector<int>& nums, int t) {
-        int n=nums.size();
-        int l=0,r=n-1,m;
+    int search(vector<int>& nums, int target) {
+        int l=0;
+        int r=nums.size()-1;
         while(l<=r){
-            m=(l+r)/2;
-            cout<<nums[m]<<" ";
-            if(nums[m]==t)return m;
-            if(nums[m]>nums[r]){
-                if(t<=nums[r] || t>nums[m] )l=m+1;
-                else r=m-1;
+            int mid=l+(r-l)/2;
+            if(nums[mid]==target)return mid;
+            else if((nums[l]<nums[mid] && (nums[l]<=target && target<nums[mid]))|| (nums[l]>nums[mid] && (nums[l]<=target || nums[mid]>target))){
+                r=mid-1;
             }
-            else{
-                if(t>nums[m] && t<=nums[r])l=m+1;
-                else r=m-1;
-            }
+            else l=mid+1;
+            
         }
-        return -1;
+        return -1;    
     }
 };
