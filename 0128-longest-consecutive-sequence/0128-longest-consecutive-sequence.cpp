@@ -8,11 +8,13 @@ public:
             if(temp.find(i)==temp.end())continue;
             else{
                 int x=i;
+                int c=0;
                 while(temp.find(x)!=temp.end()){
+                    temp.erase(x);
+                    c++;
                     x--;
                 }
-                int c=0;
-                x++;
+                x=i+1;
                 while(temp.find(x)!=temp.end()){
                     temp.erase(x);
                     c++;
