@@ -13,6 +13,11 @@ public:
             if(c>2){
                 mp[startTime]--;
                 mp[endTime]++;
+                if (mp[startTime] == 0)
+                    mp.erase(startTime);
+
+                if (mp[endTime] == 0)
+                    mp.erase(endTime);
                 return false;
             }
         }
