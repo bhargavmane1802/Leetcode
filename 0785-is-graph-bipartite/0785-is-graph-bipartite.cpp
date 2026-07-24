@@ -1,31 +1,29 @@
 class Solution {
 public:
-    bool isBipartite(vector<vector<int>>& nums) {
-        int n=nums.size();
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
         vector<int>visited(n,-1);
         queue<int>q;
         for(int i=0;i<n;i++){
             if(visited[i]==-1){
-                visited[i]=1;
                 q.push(i);
+                visited[i]=0;
                 while(!q.empty()){
-                    int t=q.front();
+                    int x=q.front();
                     q.pop();
-                    int x;
-                    int y=visited[t];
-                    if(y==1)x=0;
-                    else x=1;
-                    for(int i:nums[t]){
-                        if(visited[i]==-1){
-                            q.push(i);
-                            visited[i]=x;
+                    int v;
+                    if(visited[x]==0)v=1;
+                    else v=0;
+                    for(int j:graph[x]){
+                        if(visited[j]==-1){
+                            visited[j]=v;
+                            q.push(j);
                         }
-                        else if(visited[i]==y)return false;
+                        else if(visited[x]==visited[j])return false;
                     }
                 }
             }
         }
         return true;
-        
     }
 };
