@@ -1,22 +1,27 @@
 class Solution {
 public:
+    bool solve(int m,vector<int>&p,int h){
+        int x=0;
+        for(int i=0;i<p.size();i++){
+            int a=p[i]/m;
+            if(p[i]%m!=0)a++;
+            x+=a;
+            if(x>h)return false;
+        }
+        return true;
+    }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int mx=0;
-        for(int k:piles)mx=max(mx,k);
-        int i;
+        int tsum=piles[0];
+        for(int i:piles){
+            tsum=max(tsum,i);
+        }
         int l=1;
-        int r=mx;
+        int r=tsum;
         while(l<=r){
             int mid=l+(r-l)/2;
-            int sum=0;
-            for(int j:piles ){
-                int m=j/mid;
-                int rem=j%mid;
-                if(rem!=0)m++;
-                sum+=m;
-                if(sum>h)break;
+            if(solve(mid,piles,h)){
+                r=mid-1;
             }
-            if(sum<=h)r=mid-1;
             else l=mid+1;
         }
         return l;
