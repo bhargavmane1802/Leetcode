@@ -1,34 +1,36 @@
 class Solution {
 public:
-    bool canSplit(vector<int>& nums, int k, long long limit) {
-        int parts = 1;
-        long long curr = 0;
-
-        for (int num : nums) {
-            if (curr + num > limit) {
-                parts++;
-                curr = num;
-            } else {
-                curr += num;
+    bool solve( vector<int>&nums,int k,int mid){
+        int p=1;
+        int s=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]+s>mid){
+                p++;
+                s=nums[i];
+            }
+            else{
+                s+=nums[i];
             }
         }
-
-        return parts <= k;
+        return (p<=k);
     }
 
     int splitArray(vector<int>& nums, int k) {
-        long long low = *max_element(nums.begin(), nums.end());
-        long long high = accumulate(nums.begin(), nums.end(), 0LL);
-
-        while (low < high) {
-            long long mid = low + (high - low) / 2;
-
-            if (canSplit(nums, k, mid))
-                high = mid;
-            else
-                low = mid + 1;
+        int l=nums[0];
+        int r=0;
+        for(int i:nums){
+            l=max(l,i);
+            r+=i;
         }
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(solve(nums,k,mid)){
+                r=mid-1;
+            }
+            else l=mid+1;
+        }
+        return l;
 
-        return (int)low;
+        
     }
 };
