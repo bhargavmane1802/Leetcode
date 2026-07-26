@@ -1,16 +1,36 @@
 class Solution {
 public:
     int maximumProduct(vector<int>& nums) {
-        int mxp=nums[0]*nums[1]*nums[2];
-        int mnp=mxp;
         int n=nums.size();
-        // int ans=0;
-        // for(int i=3;i<n;i++){
-        //     mxp=max()
-        //     ans=max(ans,max(mxp,mnp));
-        // }
-        sort(nums.begin(),nums.end());
-        int ans=max((nums[0]*nums[1]*nums[n-1]),(nums[n-1]*nums[n-2]*nums[n-3]));
+        priority_queue<int>q;
+        priority_queue<int,vector<int>,greater<int>>g;
+        for(int i=0;i<n;i++){
+            if(q.size()<2){
+                q.push(nums[i]);
+            }
+            else if(q.size()>=2 && q.top()>=nums[i]){
+                q.pop();
+                q.push(nums[i]);
+            }
+            if(g.size()<3){
+                g.push(nums[i]);
+            }
+            else if(g.size()>=3 && g.top()<=nums[i]){
+                g.pop();
+                g.push(nums[i]);
+            }
+        }
+        int x=q.top();
+        q.pop();
+        x*=q.top();
+        int y=g.top();
+        g.pop();
+        y*=g.top();
+        g.pop();
+        x*=g.top();
+        y*=g.top();
+
+        int ans=max(x,y);
         return ans;
     }
 };
