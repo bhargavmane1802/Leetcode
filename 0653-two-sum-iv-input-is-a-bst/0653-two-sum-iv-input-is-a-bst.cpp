@@ -11,18 +11,16 @@
  */
 class Solution {
 public:
-    bool solve(TreeNode*root,int k,unordered_set<int>&visited){
+unordered_set<int>s;
+    bool solve(TreeNode*root,int k){
         if(!root)return false;
-        int val=root->val;
-        if(visited.find(k-val)!=visited.end())return true;
-        visited.insert(val);
-        if(solve(root->left,k,visited))return true;
-        if(solve(root->right,k,visited))return true;
+        if(s.find(k-root->val)!=s.end())return true;
+        s.insert(root->val);
+        if(solve(root->left,k))return true;
+        if(solve(root->right,k))return true;
         return false;
-
     }
     bool findTarget(TreeNode* root, int k) {
-        unordered_set<int>visited;
-        return solve(root,k,visited);
+        return solve(root,k);
     }
 };
