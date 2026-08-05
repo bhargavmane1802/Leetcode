@@ -8,12 +8,13 @@ public:
         queue<int>q;
         q.push(k);
         vector<int>visited(n,-1);
+        visited[k]=0;
         while(!q.empty()){
             int x=q.front();
             q.pop();
-            visited[x]=0;
             for(int i:adj[x]){
                 if(visited[i]==-1){
+                    visited[i]=0;
                     q.push(i);
                 }
             }
