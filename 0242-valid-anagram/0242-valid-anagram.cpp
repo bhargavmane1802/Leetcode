@@ -1,10 +1,15 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
-        if(s==t)return true;
-        return false;
-        
+        int n=s.size();
+        int m=t.size();
+        if(m!=n)return false;
+        map<char,int>a;
+        map<char,int>b;
+        for(int i=0;i<n;i++){
+            a[s[i]]++;
+            b[t[i]]++;
+        }
+        return a==b;
     }
 };
