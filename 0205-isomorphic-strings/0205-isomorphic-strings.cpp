@@ -1,20 +1,21 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        if(s.size()!=t.size())return false;
-        unordered_map<char,vector<int>>freq;
-        unordered_set<char>temp;
-        for(int i=0;i<s.size();i++){
-            freq[s[i]].push_back(i);
-            temp.insert(s[i]);
-        }
-        for(auto i:temp){
-            char x=t[freq[i][0]];
-            for(int j:freq[i]){
-                if(t[j]!=x)return false;
+        unordered_map<char,char>mp;
+        unordered_set<char>us;
+        int n=s.size();
+        int m=s.size();
+        if(n!=m)return false;
+        for(int i=0;i<n;i++){
+            if(mp.find(s[i])==mp.end()){
+                if(us.find(t[i])!=us.end()){
+                    return false;
+                }
+                mp[s[i]]=t[i];
+                us.insert(t[i]);
             }
+            if(mp[s[i]]!=t[i])return false;
         }
         return true;
-        
     }
 };
