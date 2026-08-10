@@ -8,11 +8,10 @@ public:
         if(s>t ||ind>=can.size()){
             return;
         }
-        int i=ind;
-        unordered_set<int>x;
-        for(i;i<can.size();i++){
-            if(x.find(can[i])==x.end()){
-                x.insert(can[i]);
+
+        for(int i=ind;i<can.size();i++){
+
+            if(i==0 || i==ind || can[i]!=can[i-1]){
                 temp.push_back(can[i]);
                 cs(i+1,s+can[i],t,can,temp,ans);
                 temp.pop_back();
