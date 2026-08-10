@@ -10,15 +10,15 @@ public:
         }
 
         for(int i=ind;i<can.size();i++){
-            if(i > ind && can[i] == can[i-1])
-            continue;
+            if(s+can[i]>t){
+                return;
+            }
+           if(i > ind && can[i] == can[i-1])
+        continue;
             if(i==0 || i==ind || can[i]!=can[i-1]){
                 temp.push_back(can[i]);
                 cs(i+1,s+can[i],t,can,temp,ans);
                 temp.pop_back();
-            }
-            if(s+can[i]>t){
-                return;
             }
         }
     }
