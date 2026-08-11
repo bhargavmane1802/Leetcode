@@ -1,24 +1,21 @@
 class Solution {
 public:
     int missingInteger(vector<int>& nums) {
-        unordered_set<int>temp;
-        for(int i:nums){
-            temp.insert(i);
-        }
+        vector<int>temp(55);
         int n=nums.size();
         int x=nums[0];
-        int sum=nums[0];
+        temp[nums[0]]=1;
+        int a=0;
         for(int i=1;i<n;i++){
-            if(nums[i]==nums[i-1]+1){
-                sum+=nums[i];
+            if( a==0 && nums[i]==nums[i-1]+1){
+                x+=nums[i];
+            
             }
-            else break;
-            x=max(x,sum);
+            else a=1;
+            temp[nums[i]]=1;
         }
-        cout<<x;
-        while(temp.find(x)!=temp.end()){
-            x++;
-        }
+        if(x>50)return x;
+        while(temp[x]==1)x++;
         return x;
     }
 };
