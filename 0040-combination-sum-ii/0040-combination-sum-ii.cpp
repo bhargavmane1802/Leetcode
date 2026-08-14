@@ -13,6 +13,7 @@ public:
         temp.pop_back();
         for(int i=idx+1 ;i<c.size();i++){
             if(c[i]==c[i-1])continue;
+            if(sum+c[i]>t)return;
             temp.push_back(c[i]);
             sum+=c[i];
             solve(c,t,sum,i+1,temp,ans);
