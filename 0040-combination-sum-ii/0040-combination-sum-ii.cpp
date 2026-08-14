@@ -1,31 +1,30 @@
 class Solution {
 public:
-    void cs(int ind,int s,int t,vector<int >& can,vector<int>temp,vector<vector<int>>&ans){
-        if (s==t){
+    vector<vector<int>>ans;
+    void solve(vector<int>& c, int t,int sum,int idx,vector<int>temp){
+        if(sum==t){
             ans.push_back(temp);
-            return;
+            return ;
         }
-        if(s>t ||ind>=can.size()){
-            return;
+        if(idx>=c.size() || sum>t)return ;
+        temp.push_back(c[idx]);
+        sum+=c[idx];
+        solve(c,t,sum,idx+1,temp);
+        sum-=c[idx];
+        temp.pop_back();
+        for(int i=idx+1 ;i<c.size();i++){
+            if(c[i]==c[i-1])continue;
+            temp.push_back(c[i]);
+            sum+=c[i];
+            solve(c,t,sum,i+1,temp);
+            sum-=c[i];
+            temp.pop_back();
         }
-
-        for(int i=ind;i<can.size();i++){
-            if(s+can[i]>t){
-                return;
-            }
-           if(i > ind && can[i] == can[i-1])
-        continue;
-            if(i==0 || i==ind || can[i]!=can[i-1]){
-                temp.push_back(can[i]);
-                cs(i+1,s+can[i],t,can,temp,ans);
-                temp.pop_back();
-            }
-        }
+        return ;
     }
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>>ans;
-        sort(candidates.begin(),candidates.end());
-        cs(0,0,target,candidates,{},ans);
-        return ans;
+    vector<vector<int>> combinationSum2(vector<int>& c, int t) {
+     sort(c.begin(),c.end());
+     solve(c,t,0,0,{});
+     return ans;   
     }
 };
