@@ -8,17 +8,21 @@ public:
         }
         if(temp.size()<k)return "";
         int t=INT_MAX;
+        string ans;
         for(int i=0;i<=temp.size()-k;i++){
-            t=min(temp[i+k-1]-temp[i]+1,t);
-        }
-        vector<string>nums;
-        for(int i=0;i<=temp.size()-k;i++){
-            if((temp[i+k-1]-temp[i]+1)==t){
-                nums.push_back(s.substr(temp[i],t));
+            int l=temp[i+k-1]-temp[i]+1;
+            string curr=s.substr(temp[i],l);
+            if(l<t){
+                ans=curr;
+                t=l;
+            }
+            else if (l==t && curr<ans){
+                ans=curr;
             }
         }
-        sort(nums.begin(),nums.end());
-        return nums[0];
+        
+        
+        return ans;
 
     }
 };
