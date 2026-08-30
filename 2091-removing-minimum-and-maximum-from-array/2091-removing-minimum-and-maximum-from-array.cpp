@@ -9,7 +9,9 @@ public:
             if(nums[i]<nums[y])y=i;
         }
         int ans;
-        ans=min(min(max(x,y)+1,n-min(x,y)),n-max(x,y)+min(x,y)+1);
+        int m=min(x,y);
+        int mx=max(x,y);
+        ans=min(min(mx+1,n-m),n-mx+m+1);
         return ans;
 
     }
