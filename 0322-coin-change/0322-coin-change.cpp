@@ -1,14 +1,17 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) {
-        vector<int>temp(amount+1,INT_MAX-1);
-        temp[0]=0;
-        for(int j=0;j<coins.size();j++){
-            for(int i=coins[j];i<=amount;i++){
-                temp[i]=min(temp[i],temp[i-coins[j]]+1);
+    int coinChange(vector<int>& coins, int a) {
+        if(a==0)return 0;
+        int n=coins.size();
+        vector<int>ans(a+1,100000000);
+        ans[0]=0;
+        for(int i:coins){
+            if(i>a)continue;
+            for(int j=0;j<=a-i;j++){
+                ans[i+j]=min(ans[i+j],ans[j]+1);
             }
         }
-        if(temp[amount]==INT_MAX-1)return -1;
-        return temp[amount];
+        if(ans.back()==100000000)return -1;
+        return ans.back();
     }
 };
