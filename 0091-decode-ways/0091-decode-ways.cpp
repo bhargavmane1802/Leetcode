@@ -1,24 +1,23 @@
 class Solution {
 public:
-    int solve(string & s,int i,vector<int>&dp){
-        if(i==(int)s.size())return 1;
-        if(s[i]=='0')return 0;
-        if(i==s.size()-1)return 1;
-        if(dp[i]!=-1)return dp[i];
-        int x= s[i]-'0';
-        int y=s[i+1]-'0';
-        x=(x*10)+y;
-        int ans=0;
-        if(x>0 && x<27){
-            ans=solve(s,i+2,dp);
-        }
-        ans+=solve(s,i+1,dp);
-        dp[i]=ans;
-        return ans;
-    }
     int numDecodings(string s) {
+        if(s[0]=='0')return 0;
         int n=s.size();
-        vector<int>dp(n,-1);
-       return solve(s,0,dp);
+        vector<int>dp(n+1);
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=n;i++){
+            int x=s[i-1]-'0';
+            if(x>0){
+                dp[i]+=dp[i-1];
+            }
+            if(s[i-2]=='0')continue;
+            x=(10 *(s[i-2]-'0'))+x;
+            if(x>0 && x<=26){
+                dp[i]+=dp[i-2];
+            }
+        }
+        return dp.back();
+
     }
 };
