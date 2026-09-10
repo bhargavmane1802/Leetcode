@@ -3,16 +3,14 @@ public:
    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
         vector<vector<pair<int,int>>>adj(n);
         vector<int>visited(n,INT_MAX);
-        priority_queue<pair<int,pair<int,int>>,
-                        vector<pair<int,pair<int,int>>>,
-                        greater<pair<int,pair<int,int>>>>q;
+        queue<pair<int,pair<int,int>>>q;
         for(auto x:flights){
             adj[x[0]].push_back({x[1],x[2]});
         }
         q.push({0,{0,src}});
         visited[src]=0;
         while(!q.empty()){
-            auto x=q.top();
+            auto x=q.front();
             q.pop();
             int to=x.second.second;
             int cost=x.second.first;
