@@ -1,30 +1,33 @@
 class Solution {
 public:
-   int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<vector<pair<int,int>>>adj(n);
-        vector<int>visited(n,INT_MAX);
-        queue<pair<int,pair<int,int>>>q;
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<vector<int>>>adj(n);
         for(auto x:flights){
             adj[x[0]].push_back({x[1],x[2]});
         }
-        q.push({0,{0,src}});
-        visited[src]=0;
+        vector<pair<int,int>>visited(n,{INT_MAX,k+1});
+        queue<pair<int,vector<int>>>q;
+        q.push({0,{src,-1}});
+        visited[src]={0,0};
         while(!q.empty()){
-            auto x=q.front();
+            auto cost =q.front().first;
+            auto from=q.front().second[0];
+            auto nv=q.front().second[1];
             q.pop();
-            int to=x.second.second;
-            int cost=x.second.first;
-            int step=x.first;
-            if(step>k)continue;
-            for(auto i:adj[to]){
-                if(visited[i.first]>=cost+i.second){
-                    visited[i.first]=cost+i.second;
-                    q.push({step+1,{cost+i.second,i.first}});
+            if(from==dst)continue;
+            if(nv==k){
+                continue;
+            }
+            for(auto x:adj[from]){
+                int to=x[0];
+                int fees=x[1]+cost;
+                if(visited[to].first>fees || visited[to].second>nv+1){
+                    visited[to]={min(visited[to].first,fees),min(visited[to].second,nv+1)};
+                    q.push({fees,{to,nv+1}});
                 }
             }
-
         }
-        if(visited[dst]==INT_MAX)return -1;
-        return visited[dst];
-    } 
+        if(visited[dst].first==INT_MAX)return -1;
+        return visited[dst].first;
+    }
 };
