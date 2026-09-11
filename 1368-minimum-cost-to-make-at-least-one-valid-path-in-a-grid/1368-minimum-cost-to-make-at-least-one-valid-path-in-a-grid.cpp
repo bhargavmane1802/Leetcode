@@ -13,8 +13,8 @@ public:
         while(!q.empty()){
             auto [cost,a,b]=q.top();
             q.pop();
-            cout<<a<<"-"<<b<<" "<<cost<<endl;
             if(a==n-1 && b==m-1)return cost;
+            if(cost != visited[a][b])continue;
             for(int i=0;i<4;i++){
                 int x=a+row[i];
                 int y=b+col[i];
