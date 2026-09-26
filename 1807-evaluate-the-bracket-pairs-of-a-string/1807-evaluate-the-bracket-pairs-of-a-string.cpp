@@ -3,7 +3,7 @@ public:
     string evaluate(string s, vector<vector<string>>& k) {
         string ans="";
         unordered_map<string,string>mp;
-        for(auto x:k){
+        for(auto &x:k){
             mp[x[0]]=x[1];
         }
         int n=s.size();
