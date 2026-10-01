@@ -22,7 +22,6 @@ public:
         vector<vector<int>>temp;
         vector<vector<int>>dp(n,{-1,-1});
         for(auto x:mp){
-            cout<<x.first<<" "<<x.second<<endl;
             temp.push_back({x.first,x.second});
         }
         return solve(temp,0,0,dp);
