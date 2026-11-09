@@ -1,27 +1,27 @@
 class Solution {
 public:
     bool canFinish(int n, vector<vector<int>>& pre) {
-        vector<int>temp(n,0);
+        vector<int>in(n);
         vector<vector<int>>adj(n);
         for(auto x:pre){
-            temp[x[0]]++;
             adj[x[1]].push_back(x[0]);
+            in[x[0]]++;
         }
+        int c=0;
         queue<int>q;
         for(int i=0;i<n;i++){
-            if(temp[i]==0){q.push(i);
-            }
+            if(in[i]==0){q.push(i);}
         }
         while(!q.empty()){
-            int t= q.front();
+            int x=q.front();
             q.pop();
-            for(auto x:adj[t]){temp[x]--;
-            if(temp[x]==0)q.push(x);}
-
+            c++;
+            for(auto j:adj[x]){
+                in[j]--;
+                if(in[j]==0)q.push(j);
+            }
         }
-        for(int i:temp){
-            if(i!=0)return false;
-        }
-        return true;
+        if(c==n)return true;
+        return false;
     }
 };
