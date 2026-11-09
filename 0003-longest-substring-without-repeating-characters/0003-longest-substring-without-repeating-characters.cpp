@@ -6,11 +6,10 @@ public:
         int ans=0;
         for(char c:s){
             r++;
-            int t='z'-c;
-            t+=20;
+            int t=c;
             freq[t]++;
             while(freq[t]>1){
-                freq['z'-s[l]+20]--;
+                freq[s[l]]--;
                 l++;
             }
             ans=max(ans,(r-l));
