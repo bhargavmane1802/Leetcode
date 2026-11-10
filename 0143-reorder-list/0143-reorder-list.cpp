@@ -10,31 +10,33 @@
  */
 class Solution {
 public:
+    ListNode * reverseList(ListNode*head){
+        ListNode* prev=NULL ,*curr=head;
+        while(curr){
+            swap(curr->next,prev);
+            swap(curr,prev);
+        }
+        return prev;
+    }
     void reorderList(ListNode* head) {
-        int s=0;
-        ListNode* temp=head;
-        while(temp){
-            s++;
-            temp=temp->next;
+        ListNode*slow=head;
+        ListNode *fast=head;
+        if(!head || !head->next)return ;
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        int c=s-(s/2);
-        temp=head;
-        while(c>0){
-            c--;
-            temp=temp->next;
+        fast=slow->next;
+        slow->next=NULL;
+        slow=head;
+        fast=reverseList(fast);
+        while(fast){
+            ListNode* temp=slow->next;
+            slow->next=fast;
+            fast=fast->next;
+            slow->next->next=temp;
+            slow=slow->next->next;
         }
-        ListNode*prev=NULL;
-        while(temp){
-            swap(temp->next,prev);
-            swap(temp,prev);
-        }
-        temp=head;
-        ListNode*store;
-        while(s>0){
-            s--;
-            swap(temp->next,prev);
-            temp=temp->next;
-        }
-        if(temp)temp->next=NULL;
+        return ;
     }
 };
