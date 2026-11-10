@@ -1,21 +1,32 @@
 class Solution {
 public:
-    void find(vector<string>& ans ,int o,int c, string temp,int n){
-        if(temp.size()>=n){
-            ans.push_back(temp);
+    void solve(int open,int close,vector<string>&ans, string &s){
+        if(open==0 && close==0){
+            ans.push_back(s);
+            return;
         }
-        if(o!=0){
-            find(ans,o-1,c,temp+'(',n);
+        if(close==open){
+            s.push_back('(');
+            solve(open-1,close,ans,s);
+            s.pop_back();
         }
-        if(c!=0 && o<c){
-            find(ans,o,c-1,temp+')',n);
+        else if(close>open){
+           if(open!=0){
+             s.push_back('(');
+            solve(open-1,close,ans,s);
+            s.pop_back();
+           }
+            s.push_back(')');
+            solve(open,close-1,ans,s);
+            s.pop_back();
         }
-        return;
 
     }
     vector<string> generateParenthesis(int n) {
-        vector<string>ans ;
-        find(ans,n,n,"",2*n);
+        vector<string>ans;
+        int open=n,close=n;
+        string s="";
+        solve(open,close,ans,s);
         return ans;
     }
 };
