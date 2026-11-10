@@ -1,49 +1,39 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        vector<int>r{0,0,-1,1};
-        vector<int>c{1,-1,0,0};
-        queue<pair<int,int>>q;
-        int n=grid.size();
-        int m=grid[0].size();
+        int fresh=0;
+        queue<vector<int>>q;
+        int ans=-1;
+        int n=grid.size(),m=grid[0].size();
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]==2){
-                    q.push({i,j});
-                }
+                if(grid[i][j]==1)fresh++;
+                else if(grid[i][j]==2)q.push({i,j});
             }
         }
-        if(q.empty()){
-            for(int i=0;i<n;i++){
-                for(int j=0;j<m;j++){
-                    if(grid[i][j]==1)return -1;
-                }
-            }
-            return 0;
-        }
-        int ans=0;
+        if(fresh==0)return 0;
+        vector<int>row{0,0,1,-1};
+        vector<int>col{1,-1,0,0};
         while(!q.empty()){
             int s=q.size();
             ans++;
-                for(int i=0;i<s;i++){
-                    int x=q.front().first;
-                    int y=q.front().second;
-                    q.pop();
-                    for(int j=0;j<4;j++){
-                        int l=x+r[j];
-                        int r=y+c[j];
-                        if(l>=0 && r>=0 && l<n && r<m && grid[l][r]==1){
-                            grid[l][r]=2;
-                            q.push({l,r});
-                        }
+            for(int i=0;i<s;i++){
+                int l=q.front()[0];
+                int r=q.front()[1];
+                q.pop();
+                for(int j=0;j<4;j++){
+                    int x=l+row[j];
+                    int y=r+col[j];
+                    if(x>=0 && y>=0 && x<n && y<m && grid[x][y]==1){
+                        grid[x][y]=2;
+                        fresh--;
+                        q.push({x,y});
+
                     }
                 }
-        }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1)return -1;
             }
         }
-        return ans-1;
+        if(fresh==0)return ans;
+        return -1;
     }
 };
