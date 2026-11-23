@@ -1,21 +1,19 @@
 class Solution {
 public:
     bool canPartition(vector<int>& nums) {
-        int sum=0;
         int n=nums.size();
+        int sum=0;
         for(int i:nums)sum+=i;
-        if(sum%2!=0)return false;
+        if(sum%2==1)return false;
         sum/=2;
-        vector<int>dp(sum+1);
-        dp[0]=1;
+        vector<int>total(sum+1);
+        total[0]=1;
         for(int i:nums){
-            if(i>sum)continue;
-            for(int j=sum;j>=0+i;j--){
-                if(dp[j-i]==1)dp[j]=1;
+            for(int j=sum;j-i>=0;j--){
+                if(total[j-i]==1)total[j]=1;
             }
         }
-        return dp.back()==1;
-
-        
+        if(total.back()==1)return true;
+        return false;
     }
 };
