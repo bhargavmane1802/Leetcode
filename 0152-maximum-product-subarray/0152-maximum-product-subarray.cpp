@@ -13,7 +13,6 @@ public:
                 if(nege>0){
                     posi=1;
                     nege*=nums[i];
-                    cout<<ans<<" "<<posi<<" "<<nege<<endl;
                     continue;
                 }
                 swap(posi,nege);
@@ -26,7 +25,6 @@ public:
                 nege=1;
                 ans=max(ans,0);
             }
-            cout<<ans<<" "<<posi<<" "<<nege<<endl;
         }
         // for(int i=0;i<n;i++){
         //     t*=nums[i];
